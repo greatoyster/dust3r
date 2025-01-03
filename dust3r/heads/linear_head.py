@@ -7,6 +7,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 from dust3r.heads.postprocess import postprocess
+from ipdb import set_trace
 
 
 class LinearPts3d (nn.Module):

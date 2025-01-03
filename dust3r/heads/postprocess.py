@@ -5,7 +5,7 @@
 # post process function for all heads: extract 3D points/confidence from output
 # --------------------------------------------------------
 import torch
-
+from ipdb import set_trace
 
 def postprocess(out, depth_mode, conf_mode):
     """
@@ -35,13 +35,16 @@ def reg_dense_depth(xyz, mode):
 
     # distance to origin
     d = xyz.norm(dim=-1, keepdim=True)
-    xyz = xyz / d.clip(min=1e-8)
-
+    # xyz = xyz / d.clip(min=1e-8)
+    
     if mode == 'square':
         return xyz * d.square()
 
     if mode == 'exp':
-        return xyz * torch.expm1(d)
+        # NOTE: we only use the depth channel for exp mode
+        xy = xyz[..., :2]
+        z = xyz[...,2:]
+        return torch.cat([xy, 1.0/ (z.abs()*1e-3+1e-2)], dim=-1)
 
     raise ValueError(f'bad {mode=}')
 

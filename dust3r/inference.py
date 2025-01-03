@@ -9,7 +9,7 @@ import torch
 from dust3r.utils.device import to_cpu, collate_with_cat
 from dust3r.utils.misc import invalid_to_nans
 from dust3r.utils.geometry import depthmap_to_pts3d, geotrf
-
+from ipdb import set_trace
 
 def _interleave_imgs(img1, img2):
     res = {}

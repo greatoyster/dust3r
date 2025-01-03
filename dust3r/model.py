@@ -16,6 +16,7 @@ from dust3r.patch_embed import get_patch_embed
 
 import dust3r.utils.path_to_croco  # noqa: F401
 from models.croco import CroCoNet  # noqa
+from ipdb import set_trace
 
 inf = float('inf')
 
@@ -170,7 +171,6 @@ class AsymmetricCroCo3DStereo (
 
     def _decoder(self, f1, pos1, f2, pos2):
         final_output = [(f1, f2)]  # before projection
-
         # project to decoder dim
         f1 = self.decoder_embed(f1)
         f2 = self.decoder_embed(f2)

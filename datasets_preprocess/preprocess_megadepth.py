@@ -51,9 +51,9 @@ def main(db_root, pairs_path, output_dir):
         os.makedirs(out_dir, exist_ok=True)
 
         # load all camera params
-        _, pose_w2cam, intrinsics = _load_kpts_and_poses(db_root, scene, subscene, intrinsics=True)
+        _, pose_w2cam, intrinsics = _load_kpts_and_poses(db_root+'_sparse', scene, subscene, intrinsics=True)
 
-        in_dir = osp.join(db_root, scene, 'dense' + subscene)
+        in_dir = osp.join(db_root+'_dense', scene, 'dense' + subscene)
         args = [(in_dir, img, intrinsics[img], pose_w2cam[img], out_dir)
                 for img in [images[im_id] for im_id in im_idxs]]
         parallel_threads(resize_one_image, args, star_args=True, front_num=0, leave=False, desc=f'{scene}/{subscene}')
